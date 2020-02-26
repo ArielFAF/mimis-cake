@@ -1,0 +1,54 @@
+<div class="card mt-1">
+  <div class="card-body">
+    <form #Form="ngForm" (ngSubmit)="onGrabar()">
+      <div class="form-group" style="margin-bottom: 0%;">
+        <input type="text" class="ml-1 mr-1" name="name" #name="ngModel" style="width: 85%;" [(ngModel)]="busqueda"
+          placeholder="Ingresar nombre de la receta">
+        <button class="btn btn-success" type="submit">
+          <i class="fas fa-save"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card mt-1">
+  <div class="card-body">
+    <h6>Agregar/Editar ingredientes</h6>
+    <form #ingredienteForm="ngForm" (ngSubmit)="onAgregarEditarIngrediente()">
+      <div class="form-group" style="margin-bottom: 0 !important;">
+        <select name="ingrediente" id="ingrediente" [(ngModel)]="id" style="width: 40%">
+          <option [ngValue]="ingrediente.id" *ngFor="let ingrediente of ingredientes">{{ ingrediente.nombre }}</option>
+        </select>
+
+        <input type="text" name="cantidad" #name="ngModel" style="width: 43%; margin-left: 7px" [(ngModel)]="cantidad"
+          placeholder="Ingresar cantidad">
+
+        <button style="margin-left: 2px" class="btn btn-success" type="submit">
+          <i class="fas fa-check"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card mt-1">
+  <div class="card-body">
+    <table class="table table-sm table-hover">
+      <tbody>
+        <tr *ngFor="let ingrediente of ingredientesList">
+          <td style="width: 50%;">{{ingrediente.nombre}}</td>
+          <td style="width: 20%;">{{ingrediente.cantidad}}</td>
+          <td>
+            <a class="btn btn-primary text-white mr-1" (click)="onEdit(ingrediente.nombre)">
+              <i class="fas fa-edit"></i>
+            </a>
+            <a class="btn btn-danger text-white" (click)="onDelete(ingrediente.nombre)">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
