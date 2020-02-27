@@ -14,26 +14,24 @@ export class IngredienteService {
   constructor(private firebase: AngularFireDatabase) { }
 
   obtenerIngredientes() {
-
-    return this.listIngredientes = this.firebase.list('ingredientes');
-
+    return this.listIngredientes = this.firebase.list('ingredientes', ref => ref.orderByChild('nombre'));
   }
 
   insertarIngrediente(ingrediente: Ingrediente) {
     this.listIngredientes.push({
-      nombre: ingrediente.nombre,
-      unidad: ingrediente.unidad
+      nombre: ingrediente.nombre
+      // unidad: ingrediente.unidad
     });
   }
 
   actualizarIngrediente(ingrediente: Ingrediente) {
-    this.listIngredientes.update(ingrediente.$key, {
-      nombre: ingrediente.nombre,
-      unidad: ingrediente.unidad
+    this.listIngredientes.update(ingrediente.key, {
+      nombre: ingrediente.nombre
+      // unidad: ingrediente.unidad
     });
   }
 
-  eliminarIngrediente($key: string) {
-    this.listIngredientes.remove($key);
+  eliminarIngrediente(key: string) {
+    this.listIngredientes.remove(key);
   }
 }

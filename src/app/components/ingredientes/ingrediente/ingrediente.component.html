@@ -1,7 +1,7 @@
 <div class="card mt-1">
     <div class="card-body">
         <form #formIngrediente="ngForm" (ngSubmit)="onSubmit(formIngrediente)">
-            <input type="hidden" name=$key #$key="ngModel" [(ngModel)]="ingredienteService.selectedIngrediente.$key">
+            <input type="hidden" name=key #key="ngModel" [(ngModel)]="ingredienteService.selectedIngrediente.key">
             
             <div class="form-group">
                 <input type="text" class="form-control" name="nombre" #nombre="ngModel"
@@ -9,11 +9,11 @@
                     placeholder="Agregar nombre de ingrediente">
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <input type="text" class="form-control" name="unidad" #unidad="ngModel"
                     [(ngModel)]="ingredienteService.selectedIngrediente.unidad"
                     placeholder="Agregar unidad de medida">
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <button class="btn btn-success mr-1" type="submit">

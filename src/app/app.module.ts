@@ -9,9 +9,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { FormsModule} from '@angular/forms';
 
-// import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-// import { ToastrModule} from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 // firebase
 import { AngularFireModule} from 'angularfire2';
@@ -60,8 +59,9 @@ const appRoutes: Routes = [
     ),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    FormsModule
-    // BrowserAnimationsModule
+    FormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
     IngredienteService

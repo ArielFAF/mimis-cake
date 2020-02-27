@@ -19,7 +19,7 @@ export class IngredienteComponent implements OnInit {
   }
 
   onSubmit(formIngrediente: NgForm) {
-    if(formIngrediente.value.$key == null) {
+    if(formIngrediente.value.key == null) {
       this.ingredienteService.insertarIngrediente(formIngrediente.value);  
     } else {
       this.ingredienteService.actualizarIngrediente(formIngrediente.value);

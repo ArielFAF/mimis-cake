@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { IngredienteService } from 'src/app/services/ingrediente.service';
+import { Ingrediente } from 'src/app/models/ingrediente';
+import { RecetaService } from 'src/app/services/receta.service';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-receta',
@@ -7,44 +13,55 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecetaComponent implements OnInit {
 
-  ingredientes = [
-    {
-      id: 1,
-      nombre: 'Harina'
-    }, {
-      id: 2,
-      nombre: 'Huevos'
-    }, {
-      id: 3,
-      nombre: 'Queso'
-    }
-  ];
-
-  ingredientesList = [
-    {
-      nombre: 'Harina',
-      cantidad: '100 gr'
-    }, {
-      nombre: 'Huevos',
-      cantidad: '2 u.'
-    }
-  ];
-
   cantidad: any;
   busqueda: any;
   id: any;
 
-  constructor() { }
+  listIngredientes: Ingrediente[];
+
+  selectedIngrediente: Ingrediente = new Ingrediente();
+
+  constructor(private ingredienteService: IngredienteService, public recetaService: RecetaService, private router: Router) { }
 
   ngOnInit() {
+    this.recetaService.obtenerRecetas();
+
+    this.ingredienteService.obtenerIngredientes()
+      .snapshotChanges()
+      .subscribe(item => {
+        this.listIngredientes = [];
+        item.forEach(element => {
+          let x = element.payload.toJSON();
+          x["key"] = element.key;
+          this.listIngredientes.push(x as Ingrediente);
+        })
+      });
   }
 
-  onGrabar() {
-    alert('grabara los cambios a la receta');
+  onGrabar(formReceta: NgForm) {
+    if (formReceta.value.key == null) {
+      this.recetaService.insertarReceta(formReceta.value);
+    } else {
+      this.recetaService.actualizarReceta(formReceta.value);
+    }
+    
+    this.router.navigateByUrl('/recetario');
   }
 
-  onAgregarEditarIngrediente() {
-    alert('graba el ingrediente');
+  onAgregarEditarIngrediente(formIngrediente: NgForm) {
+    if (formIngrediente.value.key != null) {
+      this.recetaService.selectedReceta.ingredientes.push({
+        key: formIngrediente.value.key,
+        nombre: _.find(this.listIngredientes, { 'key': formIngrediente.value.key }).nombre,
+        cantidad: formIngrediente.value.cantidad,
+        unidad: formIngrediente.value.unidad
+      })
+
+    } else {
+      this.recetaService.actualizarReceta(formIngrediente.value);
+
+    }
+    // TODO limpiar formulario
   }
 
   onEdit(text: any) {
@@ -52,7 +69,10 @@ export class RecetaComponent implements OnInit {
   }
 
   onDelete(text: any) {
-    alert('elimina el ingrediente '+text);
-  }  
+    alert('elimina el ingrediente ' + text);
+  }
 
+  limpiarForm(formIngrediente: NgForm) {
+    
+  }
 }

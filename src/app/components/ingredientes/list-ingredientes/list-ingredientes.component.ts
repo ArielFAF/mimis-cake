@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IngredienteService } from 'src/app/services/ingrediente.service';
 import { Ingrediente } from 'src/app/models/ingrediente';
-// import { ToastrService } from 'ngx-toastr';
+
+import { ToastrService } from 'ngx-toastr';
+// import * as $ from 'jquery';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-list-ingredientes',
@@ -12,9 +15,11 @@ export class ListIngredientesComponent implements OnInit {
 
   listIngredientes: Ingrediente[];
 
-  constructor(private ingredienteService: IngredienteService, 
-    // private toastr: ToastrService
-    ) { }
+  parametro = new Ingrediente();
+
+  constructor(private ingredienteService: IngredienteService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.ingredienteService.obtenerIngredientes()
@@ -23,21 +28,24 @@ export class ListIngredientesComponent implements OnInit {
         this.listIngredientes = [];
         item.forEach(element => {
           let x = element.payload.toJSON();
-          x["$key"] = element.key;
+          x["key"] = element.key;
           this.listIngredientes.push(x as Ingrediente);
         })
-      })
+      });
   }
 
   onEdit(ingrediente: Ingrediente) {
     this.ingredienteService.selectedIngrediente = Object.assign({}, ingrediente);
   }
 
-  onDelete($key: string) {
-    if (confirm('Esta seguro de eliminar el ingrediente?')) {
-      this.ingredienteService.eliminarIngrediente($key);
-      // this.toastr.success('Eliminacion', 'Ingrediente Eliminado');
-    }
+  onDelete(ingrediente: Ingrediente) {
+    $('#confirmarDeleteModal').modal('show');
+    this.parametro = ingrediente;
   }
 
+  eliminar() {
+    this.ingredienteService.eliminarIngrediente(this.parametro.key);
+    this.toastr.success('Ingrediente Eliminado', '', { timeOut: 2000 });
+    this.ingredienteService.selectedIngrediente = new Ingrediente();
+  }
 }
