@@ -3,7 +3,6 @@ import { IngredienteService } from 'src/app/services/ingrediente.service';
 import { Ingrediente } from 'src/app/models/ingrediente';
 
 import { ToastrService } from 'ngx-toastr';
-// import * as $ from 'jquery';
 import * as bootstrap from 'bootstrap';
 
 @Component({

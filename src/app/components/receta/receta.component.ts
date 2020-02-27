@@ -61,7 +61,7 @@ export class RecetaComponent implements OnInit {
       this.recetaService.actualizarReceta(formIngrediente.value);
 
     }
-    // TODO limpiar formulario
+    this.limpiarForm(formIngrediente);
   }
 
   onEdit(text: any) {
@@ -72,7 +72,10 @@ export class RecetaComponent implements OnInit {
     alert('elimina el ingrediente ' + text);
   }
 
-  limpiarForm(formIngrediente: NgForm) {
-    
+  limpiarForm(ingredienteForm?: NgForm) {
+    if (ingredienteForm != null) {
+      ingredienteForm.reset();
+      this.selectedIngrediente = new Ingrediente();
+    }
   }
 }

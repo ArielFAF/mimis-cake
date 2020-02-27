@@ -14,8 +14,7 @@ export class RecetaService {
   constructor(private firebase: AngularFireDatabase) { }
 
   obtenerRecetas() {
-
-    return this.listRecetas = this.firebase.list('recetas');
+    return this.listRecetas = this.firebase.list('recetas', ref => ref.orderByChild('nombre'));
 
   }
 
@@ -24,16 +23,14 @@ export class RecetaService {
       nombre: receta.nombre,
       indicaciones: receta.indicaciones,
       ingredientes: this.selectedReceta.ingredientes
-      // unidad: ingrediente.unidad
     });
   }
 
   actualizarReceta(receta: Receta) {
     this.listRecetas.update(receta.key, {
       nombre: receta.nombre,
-      indicaciones : receta.indicaciones,
+      indicaciones: receta.indicaciones,
       ingredientes: this.selectedReceta.ingredientes
-      // unidad: ingrediente.unidad
     });
   }
 

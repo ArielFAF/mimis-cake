@@ -17,12 +17,12 @@
         <div class="card-body">
           <h6>Agregar/Editar ingredientes</h6>
 
-          <form #ingredienteForm="ngForm" autocomplete="off">  <!-- (ngSubmit)="onAgregarEditarIngrediente(ingredienteForm)" -->
+          <form #ingredienteForm="ngForm" autocomplete="off">
+            <!-- (ngSubmit)="onAgregarEditarIngrediente(ingredienteForm)" -->
             <!-- <input type="hidden" name=key #key="ngModel" [(ngModel)]="selectedIngrediente.key"> -->
 
             <div class="form-group">
-              <select name="key" id="key" [(ngModel)]="selectedIngrediente.key"
-                style="width: 100%;">
+              <select name="key" id="key" [(ngModel)]="selectedIngrediente.key" style="width: 100%;">
                 <option [ngValue]="ingrediente.key" *ngFor="let ingrediente of listIngredientes">
                   {{ ingrediente.nombre }}
                 </option>
@@ -30,10 +30,10 @@
             </div>
 
             <div class="form-group">
-              <input type="text" class="ml-1" name="cantidad" #name="ngModel" style="width: 48%;"
+              <input type="number" class="ml-1 text-right" name="cantidad" #name="ngModel" style="width: 48%;"
                 [(ngModel)]="selectedIngrediente.cantidad" placeholder="Ingresar cantidad">
 
-              <input type="text" class="ml-2" name="unidad" #unidad="ngModel" style="width: 48%;"
+              <input type="text" class="ml-2" name="unidad" #unidad="ngModel" style="width: 48%;" maxlength="4"
                 [(ngModel)]="selectedIngrediente.unidad" placeholder="Tipo de unidad">
             </div>
 
@@ -57,9 +57,9 @@
           <table class="table table-sm table-hover">
             <tbody>
               <tr *ngFor="let ingredienteIncluido of recetaService.selectedReceta.ingredientes">
-                <td style="width: 50%;">{{ingredienteIncluido.nombre}}</td>
-                <td style="width: 20%;">{{ingredienteIncluido.cantidad}}</td>
-                <td style="width: 20%;">{{ingredienteIncluido.unidad}}</td>
+                <td style="width: 40%;">{{ingredienteIncluido.nombre}}</td>
+                <td style="width: 10%;">{{ingredienteIncluido.cantidad}}</td>
+                <td style="width: 10%;">{{ingredienteIncluido.unidad}}</td>
                 <td>
                   <a class="btn btn-primary text-white mr-1" (click)="onEdit(ingredienteIncluido)">
                     <i class="fas fa-edit"></i>
@@ -78,7 +78,7 @@
       <div class="card mt-1">
         <div class="card-body">
           <h5 class="text-center">Indicaciones</h5>
-          <textarea class="ml-1" name="indicaciones" id="indicaciones" cols="45" rows="5"
+          <textarea class="ml-1" name="indicaciones" id="indicaciones" cols="45" rows="5" style="width: 100%;"
             [(ngModel)]="recetaService.selectedReceta.indicaciones"></textarea>
         </div>
       </div>

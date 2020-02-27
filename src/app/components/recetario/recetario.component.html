@@ -1,30 +1,17 @@
 <div class="card">
     <div class="card-body">
-        <form #busquedaForm="ngForm" (ngSubmit)="onSubmit()">
-            <!-- <input type="hidden" name="key" #key="ngModel" [(ngModel)]="productService.selectedProduct.key"> -->
+        <form #busquedaForm="ngForm" (ngSubmit)="buscar()" autocomplete="off" class="form-inline my-2 my-lg-0"
+            style="margin-top: 0 !important; margin-bottom: 0 !important;">
+
             <div class="form-group" style="margin-bottom: 0 !important;">
-                <input type="text" class="ml-1 mr-1" style="width: 55%;" name="name" #name="ngModel"
-                    [(ngModel)]="busqueda" placeholder="Filtrar busqueda...">
-                <!-- class="form-control" -->
-                <button class="btn btn-secondary mr-1" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
+                <input class="ml-1 mr-1" style="width: 55%;" type="search" [(ngModel)]="busqueda" name="busqueda"
+                    id="busqueda" placeholder="Filtrar busqueda..." aria-label="Search" (search)="buscar()">
 
-                <button class="btn btn-success" type="button" (click)="onNew()">
-                    <i class="fas fa-plus"></i> Nueva
-                </button>
+                <button class="btn btn-secondary mr-1" type="submit"><i class="fas fa-search"></i></button>
+                <button class="btn btn-success" type="button" (click)="onNew()"><i class="fas fa-plus"></i>
+                    Nueva</button>
             </div>
-
         </form>
-
-        <!-- <form class="form-inline my-2 my-lg-0" style="margin-top: 0 !important; margin-bottom: 0 !important;"
-            #Form="ngForm" (ngSubmit)="goHome(true)" autocomplete="off">
-            <input class="form-control mr-sm-2" style="width: 95px; margin-right: 5px;" type="search"
-                [(ngModel)]="busqueda" name="busqueda" id="busqueda" placeholder="Buscar..." aria-label="Search"
-                (search)="goHome(false)">
-            <button class="btn btn-info my-2 my-sm-0" type="submit"
-                style="margin-top: 0 !important; margin-bottom: 0 !important;">Buscar</button>
-        </form> -->
     </div>
 </div>
 
@@ -41,12 +28,34 @@
                         <a class="btn btn-primary text-white mr-1" (click)="onEdit(receta.nombre)">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a class="btn btn-danger text-white" (click)="onDelete(receta.nombre)">
+                        <a class="btn btn-danger text-white" (click)="onDelete(receta)">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmarDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Confirmar eliminacion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-left">
+                Esta seguro que quiere eliminar la receta: <strong>{{ parametro.nombre }}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger" (click)="eliminar()" data-dismiss="modal">Eliminar</button>
+            </div>
+        </div>
     </div>
 </div>
