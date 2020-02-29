@@ -1,12 +1,12 @@
 <div class="card mt-1">
     <div class="card-body">
-        <form #formIngrediente="ngForm" (ngSubmit)="onSubmit(formIngrediente)">
+        <form #formIngrediente="ngForm" (ngSubmit)="onSubmit(formIngrediente)" autocomplete="off">
             <input type="hidden" name=key #key="ngModel" [(ngModel)]="ingredienteService.selectedIngrediente.key">
-            
+
             <div class="form-group">
                 <input type="text" class="form-control" name="nombre" #nombre="ngModel"
                     [(ngModel)]="ingredienteService.selectedIngrediente.nombre"
-                    placeholder="Agregar nombre de ingrediente">
+                    placeholder="Agregar nombre de ingrediente" required>
             </div>
 
             <!-- <div class="form-group">
@@ -16,7 +16,8 @@
             </div> -->
 
             <div class="form-group">
-                <button class="btn btn-success mr-1" type="submit">
+                <button class="btn btn-success mr-1" type="submit"
+                    [disabled]="!formIngrediente.valid">
                     <i class="fas fa-save"></i> Grabar
                 </button>
 

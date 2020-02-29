@@ -5,9 +5,9 @@
 
       <!-- Nombre de Receta -->
       <div class="form-group" style="margin-bottom: 0%;">
-        <input type="text" class="ml-1 mr-1" name="nombre" #nombre="ngModel" style="width: 85%;"
+        <input type="text" class="ml-1 mr-1" name="nombre" #nombre="ngModel" style="width: 85%;" required
           [(ngModel)]="recetaService.selectedReceta.nombre" placeholder="Ingresar nombre de la receta">
-        <button class="btn btn-success" type="submit">
+        <button class="btn btn-success" type="submit" [disabled]="!formReceta.valid">
           <i class="fas fa-save"></i>
         </button>
       </div>
@@ -22,7 +22,7 @@
             <!-- <input type="hidden" name=key #key="ngModel" [(ngModel)]="selectedIngrediente.key"> -->
 
             <div class="form-group">
-              <select name="key" id="key" [(ngModel)]="selectedIngrediente.key" style="width: 100%;">
+              <select name="key" id="key" [(ngModel)]="selectedIngrediente.key" style="width: 100%;" required>
                 <option [ngValue]="ingrediente.key" *ngFor="let ingrediente of listIngredientes">
                   {{ ingrediente.nombre }}
                 </option>
@@ -31,14 +31,15 @@
 
             <div class="form-group">
               <input type="number" class="ml-1 text-right" name="cantidad" #name="ngModel" style="width: 48%;"
-                [(ngModel)]="selectedIngrediente.cantidad" placeholder="Ingresar cantidad">
+                [(ngModel)]="selectedIngrediente.cantidad" placeholder="Ingresar cantidad" required>
 
               <input type="text" class="ml-2" name="unidad" #unidad="ngModel" style="width: 48%;" maxlength="4"
-                [(ngModel)]="selectedIngrediente.unidad" placeholder="Tipo de unidad">
+                [(ngModel)]="selectedIngrediente.unidad" placeholder="Tipo de unidad" required>
             </div>
 
             <div class="form-group">
-              <button class="btn btn-success mr-1" (click)="onAgregarEditarIngrediente(ingredienteForm)">
+              <button class="btn btn-success mr-1" (click)="onAgregarEditarIngrediente(ingredienteForm)"
+              [disabled]="!ingredienteForm.valid">
                 <i class="fas fa-check"></i> Grabar
               </button>
 

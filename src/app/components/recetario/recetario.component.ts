@@ -13,7 +13,7 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./recetario.component.css']
 })
 export class RecetarioComponent implements OnInit {
-  busqueda: '';
+  busqueda: string = '';
 
   listRecetas: Receta[];
 
@@ -54,14 +54,19 @@ export class RecetarioComponent implements OnInit {
   buscar() {
     this.listRecetas = [];
 
-    _.forEach(this.recetas,
-      (p: any) => {
-        const b = p.nombre.search(this.busqueda);
-        if (p.nombre.toLowerCase().search(this.busqueda.toLowerCase()) > -1) {
-          this.listRecetas.push(p);
+    if (this.busqueda.length > 0) {
+      _.forEach(this.recetas,
+        (p: any) => {
+          const b = p.nombre.search(this.busqueda);
+          if (p.nombre.toLowerCase().search(this.busqueda.toLowerCase()) > -1) {
+            this.listRecetas.push(p);
+          }
         }
-      }
-    );
+      );
+    } else {
+      this.listRecetas = this.recetas;
+    }
+
   }
 
   onDelete(receta: Receta) {

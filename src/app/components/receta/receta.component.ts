@@ -58,7 +58,8 @@ export class RecetaComponent implements OnInit {
       })
 
     } else {
-      this.recetaService.actualizarReceta(formIngrediente.value);
+
+      alert('falta algo para que actualice');
 
     }
     this.limpiarForm(formIngrediente);
@@ -74,8 +75,9 @@ export class RecetaComponent implements OnInit {
 
   limpiarForm(ingredienteForm?: NgForm) {
     if (ingredienteForm != null) {
-      ingredienteForm.reset();
       this.selectedIngrediente = new Ingrediente();
+      ingredienteForm.reset();
+      
     }
   }
 }
